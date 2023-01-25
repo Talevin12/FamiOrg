@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="8dp"
+    android:background="@drawable/rounded_corners_rectangle"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners_rectangle"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/grocery_CHECKBOX_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:onClick="onCheckboxClicked" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/grocery_LBL_groceryQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/grocery_CHECKBOX_done"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/grocery_CHECKBOX_done"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/grocery_EDITTEXT_editQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/grocery_CHECKBOX_done"
+                android:layout_alignStart="@+id/grocery_LBL_groceryQuantity"
+                android:layout_marginStart="-4dp"
+                android:hint="#"
+                android:inputType="numberDecimal|numberSigned"
+                android:minWidth="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="#48000000"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/grocery_LBL_groceryProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/grocery_LBL_groceryQuantity"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/grocery_LBL_groceryQuantity"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/grocery_EDITTEXT_editName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/grocery_LBL_groceryProduct"
+                android:layout_alignStart="@+id/grocery_LBL_groceryProduct"
+                android:layout_marginStart="-4dp"
+                android:layout_toEndOf="@+id/grocery_EDITTEXT_editQuantity"
+                android:hint="Fill here"
+                android:maxLength="15"
+                android:textColor="@color/black"
+                android:textColorHint="#48000000"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/grocery_IMG_BTN_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_trash"
+                android:backgroundTint="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/grocery_IMG_BTN_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:layout_toStartOf="@+id/grocery_IMG_BTN_delete"
+                android:background="@drawable/ic_pencil"
+                android:backgroundTint="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/grocery_IMG_BTN_checkEditName"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:layout_toStartOf="@+id/grocery_IMG_BTN_delete"
+                android:background="@drawable/ic_check"
+                android:backgroundTint="@color/black"
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

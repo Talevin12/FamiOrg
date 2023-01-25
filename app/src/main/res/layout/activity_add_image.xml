@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:adjustViewBounds="true"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/addImage_IMG_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/addImage_LBL_imageHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Image (Click to choose)"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/addImage_IMG_image"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_below="@+id/addImage_LBL_imageHeader"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/choose_img" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/addImage_EDITTEXT_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addImage_IMG_image"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_corners_rectangle"
+                android:hint="Share your thoughts.."
+                android:textColor="@color/black"
+                android:textColorHint="#64000000"
+                android:textSize="22dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addImage_BTN_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addImage_EDITTEXT_description"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/black"
+                android:text="Submit"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

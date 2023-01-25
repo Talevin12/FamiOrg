@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "414697405996",
+    "firebase_url": "https://famiorg-6fea6-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "famiorg-6fea6",
+    "storage_bucket": "famiorg-6fea6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414697405996:android:830e708ea6bfb42d949b89",
+        "android_client_info": {
+          "package_name": "com.example.famiorg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414697405996-5av2hirkhpalteoikvf36bbl7dmd413n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8JzYH-LL5v9PmHVJyQldmrwsDR26lBmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414697405996-5av2hirkhpalteoikvf36bbl7dmd413n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

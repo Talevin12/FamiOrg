@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_IMG_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/main_LBL_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/main_IMG_myIcon"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_IMG_myIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/main_BTN_settings" />
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/main_BTN_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:backgroundTint="#E8BFB6B6"
+        app:icon="@drawable/ic_settings"
+        app:iconTint="#03A9F4" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_LBL_familyName"
+        android:layout_below="@+id/main_BTN_settings"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/main_IMG_BTN_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/main_IMG_BTN_images"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/main_IMG_BTN_shoppingList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/main_LBL_familyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_LST_familyIcons"
+        android:layout_centerHorizontal="true"
+        android:text="My Family"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_LST_familyIcons"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_above="@+id/main_BTN_signout"
+        android:layout_marginBottom="5dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/main_BTN_signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#8C8A8A"
+        android:text="Sign out"
+        android:textColor="#E80202"
+        android:textSize="20dp" />
+
+</RelativeLayout>

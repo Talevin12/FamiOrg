@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activities.EditProfileActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/editProfile_IMG_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Enter new name: "
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editProfile_EDIT_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:maxLength="15"
+                android:minWidth="270dp"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/editProfile_IMG_BTN_checkEditName"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/editProfile_EDIT_name"
+                android:visibility="visible"
+                app:icon="@drawable/ic_check" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Choose new icon: "
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/editProfile_LST_icons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal">-->
+
+        <!--            <Spinner-->
+        <!--                android:id="@+id/editProfile_SPINNER_icons"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:background="@android:drawable/btn_dropdown"-->
+        <!--                android:spinnerMode="dropdown"/>-->
+
+        <!--            <androidx.appcompat.widget.AppCompatImageButton-->
+        <!--                android:id="@+id/editProfile_IMG_BTN_checkIcon"-->
+        <!--                android:layout_width="50dp"-->
+        <!--                android:layout_height="50dp"-->
+        <!--                android:layout_marginLeft="10dp"-->
+        <!--                android:src="@drawable/ic_check"-->
+        <!--                android:background="@color/white"/>-->
+
+        <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+        <!--        <io.getstream.avatarview.AvatarView-->
+        <!--            android:id="@+id/editProfile_AVATAR_avatars"-->
+        <!--            android:layout_width="110dp"-->
+        <!--            android:layout_height="110dp"-->
+        <!--            app:avatarViewBorderColor="#FFEB3B"-->
+        <!--            app:avatarViewBorderWidth="3dp"-->
+        <!--            app:avatarViewIndicatorBorderColor="@color/white"-->
+        <!--            app:avatarViewIndicatorBorderSizeCriteria="10"-->
+        <!--            app:avatarViewIndicatorColor="#8BC34A"-->
+        <!--            app:avatarViewIndicatorEnabled="true"-->
+        <!--            app:avatarViewIndicatorPosition="bottomRight"-->
+        <!--            app:avatarViewIndicatorSizeCriteria="9"-->
+        <!--            app:avatarViewInitialsTextStyle="bold"-->
+        <!--            app:avatarViewShape="circle" />-->
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
