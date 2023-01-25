@@ -75,7 +75,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
 
     private void initViews() {
         createFam_BTN_submit.setOnClickListener(v -> {
-            if(createFam_invitations.getVisibility() == View.INVISIBLE) {
+            if (createFam_invitations.getVisibility() == View.INVISIBLE) {
                 if (!createFam_EDIT_famName.getText().toString().isBlank()) {
                     newFam = new Family()
                             .setFamilyName(createFam_EDIT_famName.getText().toString());
@@ -93,7 +93,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
 
         createFam_IMG_BTN_inviteMemberSend.setOnClickListener(v -> {
             if (!createFam_EDIT_inviteMember.getText().toString().isBlank()) {
-                if(!createFam_EDIT_inviteMember.getText().toString().equalsIgnoreCase(user.getEmail())) {
+                if (!createFam_EDIT_inviteMember.getText().toString().equalsIgnoreCase(user.getEmail())) {
                     createFam_IMG_BTN_inviteMemberSend.setEnabled(false);
 
                     MemberInvitation memberInvitation = new MemberInvitation()

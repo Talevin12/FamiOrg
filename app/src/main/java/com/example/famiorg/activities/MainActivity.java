@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(!googleLoginAssets.checkSignIn()) {
+        if (!googleLoginAssets.checkSignIn()) {
             finish();
         }
     }
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initCallbacks() {
         callback_addOrUpdateFamilyMember = (Callback_DataManager) object -> {
-            adapter_myfamilyIcons.addOrUpdate((User)object);
+            adapter_myfamilyIcons.addOrUpdate((User) object);
         };
 
         callback_removeFamilyMember = (Callback_DataManager) object -> {
@@ -123,18 +123,23 @@ public class MainActivity extends AppCompatActivity {
         };
 
         callback_setUser = (Callback_DataManager) object -> {
-            user = (User)object;
+            user = (User) object;
 
-            if(user != null) {
-                setUserInUI();
-                dataManager.getFamilyName(user.getFamilyId()/*, refFamilyName*/);
+            if (user.getFamilyId() == null) {
+                finish();
+            } else {
 
-                dataManager.getFamilyMembersRT(user.getFamilyId());
+                if (user != null) {
+                    setUserInUI();
+                    dataManager.getFamilyName(user.getFamilyId()/*, refFamilyName*/);
+
+                    dataManager.getFamilyMembersRT(user.getFamilyId());
+                }
             }
         };
 
         callback_setFamilyName = (Callback_DataManager) object -> {
-            setFamilyNameInUI((String)object);
+            setFamilyNameInUI((String) object);
         };
     }
 
@@ -149,25 +154,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewsImages() {
-        String background ="https://img.freepik.com/free-photo/top-view-background-beautiful-white-grey-brown-cream-blue-background_140725-72219.jpg?w=2000";
+        String background = "https://img.freepik.com/free-photo/top-view-background-beautiful-white-grey-brown-cream-blue-background_140725-72219.jpg?w=2000";
         Glide.with(this)
                 .load(background)
                 .centerCrop()
                 .into((AppCompatImageView) findViewById(R.id.main_IMG_background));
 
-        String calendarImg ="https://thumbs.dreamstime.com/b/red-pin-event-calendar-background-close-up-time-red-pin-event-calendar-background-close-up-time-149540392.jpg";
+        String calendarImg = "https://thumbs.dreamstime.com/b/red-pin-event-calendar-background-close-up-time-red-pin-event-calendar-background-close-up-time-149540392.jpg";
         Glide.with(this)
                 .load(calendarImg)
                 .centerCrop()
                 .into(main_IMG_BTN_calendar);
 
-        String imagesImg ="https://dvyvvujm9h0uq.cloudfront.net/com/articles/1585856768-family-2.jpg";
+        String imagesImg = "https://dvyvvujm9h0uq.cloudfront.net/com/articles/1585856768-family-2.jpg";
         Glide.with(this)
                 .load(imagesImg)
                 .centerCrop()
                 .into(main_IMG_BTN_images);
 
-        String shoppingListImg ="https://img.freepik.com/premium-photo/shopping-list-shopping-cart-wooden-background_165146-326.jpg?w=2000";
+        String shoppingListImg = "https://img.freepik.com/premium-photo/shopping-list-shopping-cart-wooden-background_165146-326.jpg?w=2000";
         Glide.with(this)
                 .load(shoppingListImg)
                 .centerCrop()

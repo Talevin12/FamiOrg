@@ -15,9 +15,10 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,42 +74,64 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
 
-        <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:orientation="horizontal">-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Invite new family member"
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:textStyle="bold" />
 
-        <!--            <Spinner-->
-        <!--                android:id="@+id/editProfile_SPINNER_icons"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:background="@android:drawable/btn_dropdown"-->
-        <!--                android:spinnerMode="dropdown"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="10dp">
 
-        <!--            <androidx.appcompat.widget.AppCompatImageButton-->
-        <!--                android:id="@+id/editProfile_IMG_BTN_checkIcon"-->
-        <!--                android:layout_width="50dp"-->
-        <!--                android:layout_height="50dp"-->
-        <!--                android:layout_marginLeft="10dp"-->
-        <!--                android:src="@drawable/ic_check"-->
-        <!--                android:background="@color/white"/>-->
+            <EditText
+                android:id="@+id/editProfile_EDIT_inviteMember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:hint="Family member (Gmail account)"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textColorHint="#4F4F4F"
+                android:textSize="20dp" />
 
-        <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/editProfile_IMG_BTN_inviteMemberSend"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/createFam_EDIT_inviteMember"
+                app:icon="@drawable/ic_check" />
 
-        <!--        <io.getstream.avatarview.AvatarView-->
-        <!--            android:id="@+id/editProfile_AVATAR_avatars"-->
-        <!--            android:layout_width="110dp"-->
-        <!--            android:layout_height="110dp"-->
-        <!--            app:avatarViewBorderColor="#FFEB3B"-->
-        <!--            app:avatarViewBorderWidth="3dp"-->
-        <!--            app:avatarViewIndicatorBorderColor="@color/white"-->
-        <!--            app:avatarViewIndicatorBorderSizeCriteria="10"-->
-        <!--            app:avatarViewIndicatorColor="#8BC34A"-->
-        <!--            app:avatarViewIndicatorEnabled="true"-->
-        <!--            app:avatarViewIndicatorPosition="bottomRight"-->
-        <!--            app:avatarViewIndicatorSizeCriteria="9"-->
-        <!--            app:avatarViewInitialsTextStyle="bold"-->
-        <!--            app:avatarViewShape="circle" />-->
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editProfile_BTN_exitFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#FF0000"
+                android:padding="15dp"
+                android:text="Exit family"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

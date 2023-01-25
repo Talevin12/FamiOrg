@@ -118,7 +118,8 @@ public class DataManager {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
@@ -173,12 +174,14 @@ public class DataManager {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {}
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
                 });
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
@@ -189,15 +192,18 @@ public class DataManager {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {}
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
                 });
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
@@ -211,19 +217,20 @@ public class DataManager {
             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                 ArrayList<User> famMembers = new ArrayList<>();
 
-                for(DataSnapshot child : snapshot1.getChildren()) {
+                for (DataSnapshot child : snapshot1.getChildren()) {
                     refUsers.child(child.getValue(String.class)).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot2) {
                             famMembers.add(snapshot2.getValue(User.class));
 
-                            if(snapshot1.getChildrenCount() == famMembers.size()) {
+                            if (snapshot1.getChildrenCount() == famMembers.size()) {
                                 callback_getFamilyMembers.getObject(famMembers);
                             }
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error) {}
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
                     });
                 }
             }
@@ -234,7 +241,7 @@ public class DataManager {
             }
         });
     }
-    
+
     public void addImage(String famId, ImagePost newImagePost) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference refImagePosts = db.getReference("Families").child(famId).child("imagePosts");
@@ -251,7 +258,7 @@ public class DataManager {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<ImagePost> imagePosts = new ArrayList<>();
 
-                for(DataSnapshot child : snapshot.getChildren()) {
+                for (DataSnapshot child : snapshot.getChildren()) {
                     imagePosts.add(child.getValue(ImagePost.class));
                 }
 
@@ -259,7 +266,8 @@ public class DataManager {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
@@ -267,7 +275,7 @@ public class DataManager {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference refUser = db.getReference("Users").child(userId);
 
-        if(isRT) {
+        if (isRT) {
             refUser.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -303,7 +311,8 @@ public class DataManager {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
@@ -337,12 +346,13 @@ public class DataManager {
 
         refUserFamily.setValue(famId);
 
-        if(!isCreator) {
+        if (!isCreator) {
             DatabaseReference refFamilyMembers = db.getReference("Families").child(famId).child("familyMembersIDs");
             refFamilyMembers.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<>() {};
+                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<>() {
+                    };
                     ArrayList<String> members = snapshot.getValue(t);
                     members.add(userId);
                     refFamilyMembers.setValue(members);
@@ -370,8 +380,8 @@ public class DataManager {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean flag = false;
-                for(DataSnapshot child : snapshot.getChildren()) {
-                    if(child.getValue(User.class).getEmail().equalsIgnoreCase(memberInvitation.getUserRecvEmail())) {
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    if (child.getValue(User.class).getEmail().equalsIgnoreCase(memberInvitation.getUserRecvEmail())) {
                         refInvitations.child(memberInvitation.getInvitationId()).setValue(memberInvitation);
                         flag = true;
                         break;
@@ -382,7 +392,8 @@ public class DataManager {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
@@ -395,9 +406,9 @@ public class DataManager {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<MemberInvitation> invitations = new ArrayList<>();
 
-                for(DataSnapshot child : snapshot.getChildren()) {
+                for (DataSnapshot child : snapshot.getChildren()) {
                     MemberInvitation invitation = child.getValue(MemberInvitation.class);
-                    if(invitation.getUserRecvEmail().equalsIgnoreCase(email)) {
+                    if (invitation.getUserRecvEmail().equalsIgnoreCase(email)) {
                         invitations.add(invitation);
                     }
                 }
@@ -417,5 +428,33 @@ public class DataManager {
         DatabaseReference refInvitation = db.getReference("Invitations").child(invitationId);
 
         refInvitation.removeValue();
+    }
+
+    public void removeMemberFromFamily(String userId, String familyId) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference refUserFamily = db.getReference("Users").child(userId).child("familyId");
+        DatabaseReference refFamilyMembers = db.getReference("Families").child(familyId).child("familyMembersIDs");
+
+        refUserFamily.removeValue();
+
+        refFamilyMembers.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<>() {
+                };
+                ArrayList<String> members = snapshot.getValue(t);
+
+                members.remove(userId);
+                refFamilyMembers.removeValue();
+                refFamilyMembers.setValue(members);
+
+                callback_removeFamilyMember.getObject(null);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
