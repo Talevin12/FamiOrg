@@ -5,7 +5,6 @@ import java.util.UUID;
 
 public class Family {
     private String familyId = String.valueOf(UUID.randomUUID());
-    //    private String familyId = "123";
     private String familyName;
     private ArrayList<String> familyMembersIDs = new ArrayList<>();
     private ArrayList<GroceryProduct> shoppingList;

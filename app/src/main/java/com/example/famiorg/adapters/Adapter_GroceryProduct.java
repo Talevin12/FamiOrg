@@ -132,7 +132,6 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
     public void add() {
         if(!isEditing) {
             groceryProducts.add(new GroceryProduct());
-    //        notifyItemInserted(getItemCount()-1);
             notifyDataSetChanged();
             dataManager.addGrocery(user.getFamilyId(), groceryProducts.get(getItemCount()-1));
 
@@ -150,7 +149,6 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
         }
 
         groceryProducts.add(groceryProduct);
-//        notifyItemInserted(groceryProducts.size()-1);
         notifyDataSetChanged();
     }
 
@@ -168,8 +166,6 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
 
                 groceryProducts.remove(i);
 
-//                notifyItemRemoved(i);
-//                notifyItemRangeChanged(i, groceryProducts.size());
                 notifyDataSetChanged();
 
                 break;
@@ -308,7 +304,7 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
                     grocery_LBL_groceryProduct.setText(grocery_EDITTEXT_editName.getText().toString());
                     editNameAndQuantity(groceryProducts.get(getAdapterPosition()).getId(),
                             grocery_EDITTEXT_editName.getText().toString(),
-                            Float.valueOf(grocery_EDITTEXT_editQuantity.getText().toString()),
+                            Float.parseFloat(grocery_EDITTEXT_editQuantity.getText().toString()),
                             true);
 
                     grocery_LBL_groceryProduct.setVisibility(View.VISIBLE);

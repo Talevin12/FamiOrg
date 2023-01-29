@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.logic.DailyEvent;
 import com.example.famiorg.logic.Family;
 import com.example.famiorg.logic.GroceryProduct;
 import com.example.famiorg.logic.ImagePost;
@@ -35,6 +36,7 @@ public class DataManager {
     private Callback_DataManager callback_setUserFamily;
     private Callback_DataManager callback_createInvitation;
     private Callback_DataManager callback_getUserInvitations;
+    private Callback_DataManager callback_getDailyEvents;
 
     public void setCallBack_addOrUpdateFamilyMemberProtocol(Callback_DataManager callback_addOrUpdateFamilyMember) {
         this.callback_addOrUpdateFamilyMember = callback_addOrUpdateFamilyMember;
@@ -90,6 +92,10 @@ public class DataManager {
 
     public void setCallback_getUserInvitations(Callback_DataManager callback_getUserInvitations) {
         this.callback_getUserInvitations = callback_getUserInvitations;
+    }
+
+    public void setCallback_getDailyEvents(Callback_DataManager callback_getDailyEvents) {
+        this.callback_getDailyEvents = callback_getDailyEvents;
     }
 
     public void getGroceries(String famId) {
@@ -455,6 +461,34 @@ public class DataManager {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+    }
+
+    public void createDailyEvent(String familyId, DailyEvent dailyEvent) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference refFamilyMembers = db.getReference("Families").child(familyId).child("familyEvents");
+
+        refFamilyMembers.child(dailyEvent.getEventId()).setValue(dailyEvent);
+    }
+
+    public void getDailyEventsRT(String familyId) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference refFamilyMembers = db.getReference("Families").child(familyId).child("familyEvents");
+
+        refFamilyMembers.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                callback_getDailyEvents.getObject(snapshot.getValue(DailyEvent.class));
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 }

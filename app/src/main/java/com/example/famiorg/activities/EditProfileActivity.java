@@ -1,6 +1,5 @@
 package com.example.famiorg.activities;
 
-import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
@@ -134,7 +133,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                     dataManager.getFamilyName(user.getFamilyId());
                 } else {
-                    Toast.makeText(this, "You can't send invitation to yourself", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "You can't send invitation to yourself", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -191,9 +190,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         };
 
-        callback_removeFamilyMember = (Callback_DataManager) object -> {
-            finish();
-        };
+        callback_removeFamilyMember = (Callback_DataManager) object -> finish();
     }
 
     private void setCallbacks() {

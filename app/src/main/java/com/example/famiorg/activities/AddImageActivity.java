@@ -34,7 +34,7 @@ public class AddImageActivity extends AppCompatActivity {
     private AppCompatEditText addImage_EDITTEXT_description;
     private MaterialButton addImage_BTN_submit;
 
-    Callback_DataManager<User> callback_setUser;
+    Callback_DataManager callback_setUser;
 
     DataManager dataManager = new DataManager();
     GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
@@ -98,9 +98,7 @@ public class AddImageActivity extends AppCompatActivity {
                                 dataManager.addImage(user.getFamilyId(), imagePost);
                                 finish();
                             });
-                        }).addOnFailureListener(exception -> {
-                            Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show();
-                        }));
+                        }).addOnFailureListener(exception -> Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()));
             }
         });
     }
@@ -116,13 +114,7 @@ public class AddImageActivity extends AppCompatActivity {
     }
 
     private void initCallbacks() {
-        callback_setUser = (Callback_DataManager) object -> {
-            user = (User) object;
-
-//            dataManager.getGroceries(((User) object).getActiveFamilyId());
-//            initRecyclerView();
-//            initViews();
-        };
+        callback_setUser = (Callback_DataManager) object -> user = (User) object;
     }
 
     private void setCallbacks() {

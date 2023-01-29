@@ -31,7 +31,7 @@ public class Adapter_MyfamilyIcons extends RecyclerView.Adapter<Adapter_Myfamily
     @NonNull
     @Override
     public UserIconViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_icon, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.list_icon, parent, false);
         Adapter_MyfamilyIcons.UserIconViewHolder myFamilyIconViewHolder = new Adapter_MyfamilyIcons.UserIconViewHolder(view);
         return myFamilyIconViewHolder;
     }

@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     private MaterialButton main_BTN_signout;
 
-//    GoogleSignInOptions googleSignInOptions;
-//    GoogleSignInClient googleSignInClient;
-
     private User user = new User();
 
     DataManager dataManager = new DataManager();
@@ -104,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         main_BTN_settings.setOnClickListener(v -> openEditProfile());
 
+        main_IMG_BTN_calendar.setOnClickListener(v -> openCalendar());
         main_IMG_BTN_shoppingList.setOnClickListener(v -> openShoppingList());
         main_IMG_BTN_images.setOnClickListener(v -> openImageCatalog());
 
@@ -114,13 +112,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initCallbacks() {
-        callback_addOrUpdateFamilyMember = (Callback_DataManager) object -> {
-            adapter_myfamilyIcons.addOrUpdate((User) object);
-        };
+        callback_addOrUpdateFamilyMember = (Callback_DataManager) object -> adapter_myfamilyIcons.addOrUpdate((User) object);
 
-        callback_removeFamilyMember = (Callback_DataManager) object -> {
-            adapter_myfamilyIcons.remove(user);
-        };
+        callback_removeFamilyMember = (Callback_DataManager) object -> adapter_myfamilyIcons.remove(user);
 
         callback_setUser = (Callback_DataManager) object -> {
             user = (User) object;
@@ -138,9 +132,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        callback_setFamilyName = (Callback_DataManager) object -> {
-            setFamilyNameInUI((String) object);
-        };
+        callback_setFamilyName = (Callback_DataManager) object -> setFamilyNameInUI((String) object);
     }
 
     private void setCallbacks() {
@@ -180,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        main_RECYCLE_familyIcons.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        main_RECYCLE_familyIcons.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         main_RECYCLE_familyIcons.setAdapter(adapter_myfamilyIcons);
     }
@@ -203,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Start animating the image
         icon.startAnimation(anim);
+    }
+
+    private void openCalendar() {
+        Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
     }
 
     private void openShoppingList() {

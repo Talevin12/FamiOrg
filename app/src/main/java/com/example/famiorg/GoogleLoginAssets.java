@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +13,6 @@ public class GoogleLoginAssets {
 
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
-    GoogleSignInAccount account;
 
     DataManager dataManager;
     Context context;
@@ -43,18 +41,10 @@ public class GoogleLoginAssets {
     }
 
     public String getUserId() {
-//        return GoogleSignIn
-//                .getLastSignedInAccount(context)
-//                .getId();
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     public void SignOut() {
-//        googleSignInClient.signOut().addOnCompleteListener(task -> {
-////            context.finish();
-////            context.startActivity(new Intent(context, GoogleLoginActivity.class));
-//        });
-
         googleSignInClient.signOut().addOnCompleteListener(task -> {
             // Check condition
             if (task.isSuccessful()) {

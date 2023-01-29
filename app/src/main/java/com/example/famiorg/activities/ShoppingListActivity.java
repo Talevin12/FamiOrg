@@ -111,27 +111,20 @@ public class ShoppingListActivity extends AppCompatActivity {
             initViews();
         };
 
-        callback_addGroceryProduct = (Callback_DataManager) object -> {
-            adapter_groceries.add((GroceryProduct) object);
-        };
+        callback_addGroceryProduct = (Callback_DataManager) object -> adapter_groceries.add((GroceryProduct) object);
 
         callback_updateGroceryProduct = (Callback_DataManager) object -> {
             adapter_groceries.editNameAndQuantity(((GroceryProduct) object).getId(), ((GroceryProduct) object).getName(), ((GroceryProduct) object).getQuantity(), false);
             adapter_groceries.editIsDone(((GroceryProduct) object).getId(), ((GroceryProduct) object).getIsDone(), true);
         };
 
-        callback_moveGroceryProduct = (Callback_DataManager) object -> {
-            adapter_groceries.moved(((int[]) object)[0], ((int[]) object)[1]);
-        };
+        callback_moveGroceryProduct = (Callback_DataManager) object -> adapter_groceries.moved(((int[]) object)[0], ((int[]) object)[1]);
 
-        callback_removeGroceryProduct = (Callback_DataManager) object -> {
-            adapter_groceries.remove(((GroceryProduct) object).getId(), false);
-        };
+        callback_removeGroceryProduct = (Callback_DataManager) object -> adapter_groceries.remove(((GroceryProduct) object).getId(), false);
     }
 
     private void setCallbacks() {
         dataManager.setCallBack_setUserProtocol(callback_setUser);
-//        dataManager.setCallback_getGroceriesProducts(callback_getGroceriesProducts);
         dataManager.setCallback_addGroceryProduct(callback_addGroceryProduct);
         dataManager.setCallback_updateGroceryProduct(callback_updateGroceryProduct);
         dataManager.setCallback_moveGroceryProduct(callback_moveGroceryProduct);

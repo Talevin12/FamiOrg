@@ -3,6 +3,7 @@ package com.example.famiorg.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_new_family);
 
         findViews();
@@ -83,7 +85,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
 
                     dataManager.createFamily(newFam);
                 } else {
-                    Toast.makeText(this, "Family name is empty", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "Family name is empty", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 openMainActivity();
@@ -105,7 +107,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
 
                     dataManager.createInvitation(memberInvitation);
                 } else {
-                    Toast.makeText(this, "You can't send invitation to yourself", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "You can't send invitation to yourself", Toast.LENGTH_SHORT).show();
                 }
             }
         });
