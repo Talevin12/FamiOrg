@@ -200,6 +200,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private void setCallbacks() {
         userDataManager.setCallBack_setUserProtocol(callback_setUser);
         familyDataManager.setCallBack_setFamilyName(callback_setFamilyName);
+        familyDataManager.setCallBack_removeFamilyMemberProtocol(callback_removeFamilyMember);
         invitationsDataManager.setCallback_createInvitation(callback_createInvitation);
     }
 
