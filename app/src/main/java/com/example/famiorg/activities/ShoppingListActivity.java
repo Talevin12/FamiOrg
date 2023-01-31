@@ -118,7 +118,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             adapter_groceries.editIsDone(((GroceryProduct) object).getId(), ((GroceryProduct) object).getIsDone(), true);
         };
 
-        callback_moveGroceryProduct = (Callback_DataManager) object -> adapter_groceries.moved(((int[]) object)[0], ((int[]) object)[1]);
+        callback_moveGroceryProduct = (Callback_DataManager) object -> adapter_groceries.moved((GroceryProduct) object);
 
         callback_removeGroceryProduct = (Callback_DataManager) object -> adapter_groceries.remove(((GroceryProduct) object).getId(), false);
     }

@@ -120,7 +120,7 @@ public class DataManager {
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                callback_moveGroceryProduct.getObject(new int[] {snapshot.getValue(GroceryProduct.class).getPosition(), Integer.valueOf(previousChildName)});
+                callback_moveGroceryProduct.getObject(snapshot.getValue(GroceryProduct.class));
             }
 
             @Override
@@ -158,12 +158,12 @@ public class DataManager {
         refProduct.child("isDone").setValue(isDone);
     }
 
-//    public void moveGrocery(String famId, String groceryId, int from, int to) {
-//        FirebaseDatabase db = FirebaseDatabase.getInstance();
-//        DatabaseReference refProduct = db.getReference("Families").child(famId).child("shoppingList").child(groceryId);
-//
-////        refProduct.
-//    }
+    public void moveGrocery(String famId, String groceryId, int to) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference refProduct = db.getReference("Families").child(famId).child("shoppingList").child(groceryId);
+
+        refProduct.child("position").setValue(to);
+    }
 
     public void getFamilyMembersRT(String famId) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();

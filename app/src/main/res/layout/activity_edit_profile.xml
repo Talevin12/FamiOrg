@@ -49,7 +49,8 @@
                     android:maxLength="15"
                     android:minWidth="270dp"
                     android:textAlignment="center"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textColorHint="#48000000" />
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/editProfile_IMG_BTN_checkEditName"
