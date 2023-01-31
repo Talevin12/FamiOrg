@@ -12,10 +12,11 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.ImageDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.ImagePost;
 import com.example.famiorg.logic.User;
 import com.google.android.material.button.MaterialButton;
@@ -36,8 +37,9 @@ public class AddImageActivity extends AppCompatActivity {
 
     Callback_DataManager callback_setUser;
 
-    DataManager dataManager = new DataManager();
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    UserDataManager userDataManager = new UserDataManager();
+    ImageDataManager imageDataManager = new ImageDataManager();
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     int SELECT_PICTURE = 200;
 
@@ -95,7 +97,7 @@ public class AddImageActivity extends AppCompatActivity {
                             taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri1 -> {
                                 imagePost.setImageLink(uri1.toString());
 
-                                dataManager.addImage(user.getFamilyId(), imagePost);
+                                imageDataManager.addImage(user.getFamilyId(), imagePost);
                                 finish();
                             });
                         }).addOnFailureListener(exception -> Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show()));
@@ -118,7 +120,7 @@ public class AddImageActivity extends AppCompatActivity {
     }
 
     private void setCallbacks() {
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

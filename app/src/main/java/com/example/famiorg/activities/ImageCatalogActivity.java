@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapater_ImagePosts;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.FamilyDataManager;
+import com.example.famiorg.dataManagers.ImageDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.ImagePost;
 import com.example.famiorg.logic.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -36,8 +38,10 @@ public class ImageCatalogActivity extends AppCompatActivity {
     Callback_DataManager<User> callback_getFamilyMembers;
 
     ArrayList<ImagePost> imagePosts;
-    DataManager dataManager = new DataManager();
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    UserDataManager userDataManager = new UserDataManager();
+    FamilyDataManager familyDataManager = new FamilyDataManager();
+    ImageDataManager imageDataManager = new ImageDataManager();
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +101,12 @@ public class ImageCatalogActivity extends AppCompatActivity {
     private void initCallbacks() {
         callback_setUser = (Callback_DataManager) object -> {
             user = (User) object;
-            dataManager.getImages(user.getFamilyId());
+            imageDataManager.getImages(user.getFamilyId());
         };
 
         callback_getImages = (Callback_DataManager) object -> {
             imagePosts = (ArrayList<ImagePost>) object;
-            dataManager.getFamilyMembers(user.getFamilyId());
+            familyDataManager.getFamilyMembers(user.getFamilyId());
         };
 
         callback_getFamilyMembers = (Callback_DataManager) object -> {
@@ -122,8 +126,8 @@ public class ImageCatalogActivity extends AppCompatActivity {
     }
 
     private void setCallbacks() {
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
-        dataManager.setCallback_getImagePosts(callback_getImages);
-        dataManager.setCallback_getFamilyMembers(callback_getFamilyMembers);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
+        imageDataManager.setCallback_getImagePosts(callback_getImages);
+        familyDataManager.setCallback_getFamilyMembers(callback_getFamilyMembers);
     }
 }

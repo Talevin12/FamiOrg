@@ -14,9 +14,9 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.R;
 import com.example.famiorg.callbacks.RecyclerRowMoveCallback;
+import com.example.famiorg.dataManagers.GroceriesDataManager;
 import com.example.famiorg.logic.GroceryProduct;
 import com.example.famiorg.logic.User;
 
@@ -31,14 +31,14 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
     private Context context;
     private ArrayList<GroceryProduct> groceryProducts = new ArrayList<>();
     private User user;
-    private DataManager dataManager;
+    private GroceriesDataManager groceriesDataManager;
 
     private boolean isEditing = false;
 
-    public Adapter_GroceryProduct(Context context, User user, DataManager dataManager) {
+    public Adapter_GroceryProduct(Context context, User user, GroceriesDataManager groceriesDataManager) {
         this.context = context;
         this.user = user;
-        this.dataManager = dataManager;
+        this.groceriesDataManager = groceriesDataManager;
     }
 
     @NonNull
@@ -117,7 +117,7 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
                 groceryProducts.get(i).setPosition(i);
                 groceryProducts.get(i + 1).setPosition(i + 1);
 
-                dataManager.moveGrocery(user.getFamilyId(), groceryProducts.get(i).getId(), i);
+                groceriesDataManager.moveGrocery(user.getFamilyId(), groceryProducts.get(i).getId(), i);
             }
         } else {
             for (int i = from; i > to; i--) {
@@ -126,12 +126,12 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
                 groceryProducts.get(i).setPosition(i);
                 groceryProducts.get(i - 1).setPosition(i - 1);
 
-                dataManager.moveGrocery(user.getFamilyId(), groceryProducts.get(i).getId(), i);
+                groceriesDataManager.moveGrocery(user.getFamilyId(), groceryProducts.get(i).getId(), i);
             }
         }
         notifyItemMoved(from, to);
 
-        dataManager.moveGrocery(user.getFamilyId(), groceryProducts.get(to).getId(), to);
+        groceriesDataManager.moveGrocery(user.getFamilyId(), groceryProducts.get(to).getId(), to);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
                     .setPosition(getItemCount());
             groceryProducts.add(groceryProduct);
             notifyDataSetChanged();
-            dataManager.addGrocery(user.getFamilyId(), groceryProduct);
+            groceriesDataManager.addGrocery(user.getFamilyId(), groceryProduct);
 
             isEditing = true;
         } else {
@@ -185,13 +185,13 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
 
             if (flag) {
                 prod.setPosition(i - 1);
-                dataManager.moveGrocery(user.getFamilyId(), prod.getId(), i - 1);
+                groceriesDataManager.moveGrocery(user.getFamilyId(), prod.getId(), i - 1);
             } else if (prod.getId().equals(id)) {
                 prods.remove();
                 notifyDataSetChanged();
 
                 if (saveToDB) {
-                    dataManager.removeGrocery(user.getFamilyId(), prod);
+                    groceriesDataManager.removeGrocery(user.getFamilyId(), prod);
                 }
 
                 flag = true;
@@ -206,7 +206,7 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
         for (GroceryProduct groceryProduct : groceryProducts) {
             if (groceryProduct.getId().equals(id)) {
                 if (saveToDB) {
-                    dataManager.updateGroceryNameAndQuantity(user.getFamilyId(), id, newName, newQuantity);
+                    groceriesDataManager.updateGroceryNameAndQuantity(user.getFamilyId(), id, newName, newQuantity);
                 }
 
                 if (!groceryProduct.getName().equals(newName)) {
@@ -230,7 +230,7 @@ public class Adapter_GroceryProduct extends RecyclerView.Adapter<Adapter_Grocery
         int i = 0;
         for (GroceryProduct groceryProduct : groceryProducts) {
             if (saveToDB) {
-                dataManager.updateGroceryIsDone(user.getFamilyId(), id, newIsDone);
+                groceriesDataManager.updateGroceryIsDone(user.getFamilyId(), id, newIsDone);
             }
 
             if (groceryProduct.getId().equals(id)) {

@@ -14,11 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_ChooseIcon;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.FamilyDataManager;
+import com.example.famiorg.dataManagers.InvitationsDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.MemberInvitation;
 import com.example.famiorg.logic.User;
 import com.google.android.material.button.MaterialButton;
@@ -41,9 +43,11 @@ public class EditProfileActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     private Adapter_ChooseIcon adapter_chooseIcon;
 
-    DataManager dataManager = new DataManager();
+    UserDataManager userDataManager = new UserDataManager();
+    FamilyDataManager familyDataManager = new FamilyDataManager();
+    InvitationsDataManager invitationsDataManager = new InvitationsDataManager();
 
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     User user;
 
@@ -100,7 +104,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void initViews() {
         editProfile_IMG_BTN_checkEditName.setOnClickListener(v -> {
-            dataManager.updateUserName(FirebaseAuth.getInstance().getCurrentUser().getUid(), editProfile_EDIT_name.getText().toString());
+            userDataManager.updateUserName(FirebaseAuth.getInstance().getCurrentUser().getUid(), editProfile_EDIT_name.getText().toString());
             user.setName(editProfile_EDIT_name.getText().toString());
             v.setVisibility(View.INVISIBLE);
         });
@@ -131,7 +135,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (!editProfile_EDIT_inviteMember.getText().toString().equalsIgnoreCase(user.getEmail())) {
                     editProfile_IMG_BTN_inviteMemberSend.setEnabled(false);
 
-                    dataManager.getFamilyName(user.getFamilyId());
+                    familyDataManager.getFamilyName(user.getFamilyId());
                 } else {
                     Toast.makeText(this, "You can't send invitation to yourself", Toast.LENGTH_SHORT).show();
                 }
@@ -143,7 +147,7 @@ public class EditProfileActivity extends AppCompatActivity {
             alert.setTitle("Exit family");
             alert.setMessage("Are you sure you want to exit family?");
             alert.setPositiveButton("Yes", (dialog, which) -> {
-                dataManager.removeMemberFromFamily(FirebaseAuth.getInstance().getCurrentUser().getUid(), user.getFamilyId());
+                familyDataManager.removeMemberFromFamily(FirebaseAuth.getInstance().getCurrentUser().getUid(), user.getFamilyId());
                 dialog.dismiss();
             });
 
@@ -178,7 +182,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     .setUserRecvEmail(editProfile_EDIT_inviteMember.getText().toString())
                     .setDate(new Date());
 
-            dataManager.createInvitation(memberInvitation);
+            invitationsDataManager.createInvitation(memberInvitation);
         };
 
         callback_createInvitation = (Callback_DataManager) object -> {
@@ -194,9 +198,9 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void setCallbacks() {
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
-        dataManager.setCallBack_setFamilyName(callback_setFamilyName);
-        dataManager.setCallback_createInvitation(callback_createInvitation);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
+        familyDataManager.setCallBack_setFamilyName(callback_setFamilyName);
+        invitationsDataManager.setCallback_createInvitation(callback_createInvitation);
     }
 
     private void setEditText() {

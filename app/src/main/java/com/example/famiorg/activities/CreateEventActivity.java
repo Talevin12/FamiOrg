@@ -1,8 +1,5 @@
 package com.example.famiorg.activities;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +7,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.famiorg.CalendarUtils;
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.DailyEventsDataManager;
+import com.example.famiorg.dataManagers.FamilyDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.DailyEvent;
 import com.example.famiorg.logic.User;
 import com.google.android.material.button.MaterialButton;
@@ -23,7 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class EventEditActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity {
 
     private TextView createEvent_LBL_date;
     private EditText createEvent_ET_title;
@@ -34,8 +36,10 @@ public class EventEditActivity extends AppCompatActivity {
     private MaterialButton createEvent_BTN_save;
 
     private User user = new User();
-    DataManager dataManager = new DataManager();
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    UserDataManager userDataManager = new UserDataManager();
+    FamilyDataManager familyDataManager = new FamilyDataManager();
+    DailyEventsDataManager dailyEventsDataManager = new DailyEventsDataManager();
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     Callback_DataManager<User> callback_setUser;
     Callback_DataManager<User> callback_getFamilyMembers;
@@ -158,7 +162,7 @@ public class EventEditActivity extends AppCompatActivity {
             if (user.getFamilyId() == null) {
                 finish();
             } else {
-                dataManager.getFamilyMembers(user.getFamilyId());
+                familyDataManager.getFamilyMembers(user.getFamilyId());
             }
         };
 
@@ -175,8 +179,8 @@ public class EventEditActivity extends AppCompatActivity {
 
     private void setCallbacks() {
 
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
-        dataManager.setCallback_getFamilyMembers(callback_getFamilyMembers);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
+        familyDataManager.setCallback_getFamilyMembers(callback_getFamilyMembers);
     }
 
     public void saveEventAction(View view) {
@@ -184,7 +188,7 @@ public class EventEditActivity extends AppCompatActivity {
             dailyEvent.setTitle(createEvent_ET_title.getText().toString());
             dailyEvent.setDescription(createEvent_ET_description.getText().toString());
 
-            dataManager.createDailyEvent(user.getFamilyId(), dailyEvent);
+            dailyEventsDataManager.createDailyEvent(user.getFamilyId(), dailyEvent);
             finish();
         }
     }

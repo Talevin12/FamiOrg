@@ -3,6 +3,7 @@ package com.example.famiorg;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -14,11 +15,11 @@ public class GoogleLoginAssets {
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
 
-    DataManager dataManager;
+    UserDataManager userDataManager;
     Context context;
 
-    public GoogleLoginAssets(DataManager dataManager, Context context) {
-        this.dataManager = dataManager;
+    public GoogleLoginAssets(UserDataManager userDataManager, Context context) {
+        this.userDataManager = userDataManager;
         this.context = context;
     }
 
@@ -33,7 +34,7 @@ public class GoogleLoginAssets {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser != null) {
-            dataManager.getUser(firebaseUser.getUid(), true);
+            userDataManager.getUser(firebaseUser.getUid(), true);
             return true;
         } else {
             return false;

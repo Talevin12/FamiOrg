@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_MyfamilyIcons;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.FamilyDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -43,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     private User user = new User();
 
-    DataManager dataManager = new DataManager();
+    UserDataManager userDataManager = new UserDataManager();
+    FamilyDataManager familyDataManager = new FamilyDataManager();
 
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     ArrayList<User> familyMembers = new ArrayList<>();
     private Adapter_MyfamilyIcons adapter_myfamilyIcons = new Adapter_MyfamilyIcons(this, familyMembers);
@@ -125,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (user != null) {
                     setUserInUI();
-                    dataManager.getFamilyName(user.getFamilyId()/*, refFamilyName*/);
+                    familyDataManager.getFamilyName(user.getFamilyId()/*, refFamilyName*/);
 
-                    dataManager.getFamilyMembersRT(user.getFamilyId());
+                    familyDataManager.getFamilyMembersRT(user.getFamilyId());
                 }
             }
         };
@@ -136,13 +138,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setCallbacks() {
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
 
-        dataManager.setCallBack_setFamilyName(callback_setFamilyName);
+        familyDataManager.setCallBack_setFamilyName(callback_setFamilyName);
 
-        dataManager.setCallBack_addOrUpdateFamilyMemberProtocol(callback_addOrUpdateFamilyMember);
+        familyDataManager.setCallBack_addOrUpdateFamilyMemberProtocol(callback_addOrUpdateFamilyMember);
 
-        dataManager.setCallBack_removeFamilyMemberProtocol(callback_removeFamilyMember);
+        familyDataManager.setCallBack_removeFamilyMemberProtocol(callback_removeFamilyMember);
     }
 
     private void setViewsImages() {

@@ -1,11 +1,11 @@
 package com.example.famiorg;
 
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.DailyEventsDataManager;
 import com.example.famiorg.logic.DailyEvent;
 import com.example.famiorg.logic.DayCalendar;
 
 import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
@@ -21,19 +21,19 @@ public class CalendarUtils {
 
     Callback_DataManager<DailyEvent> getCallback_getDailyEventsRT = (Callback_DataManager) object -> dailyEvents.add((DailyEvent) object);
 
-    public CalendarUtils(DataManager dataManager, String famId) {
+    public CalendarUtils(DailyEventsDataManager dailyEventsDataManager, String famId) {
         selectedDate = LocalDate.now().plusMonths(1);
 
-        dataManager.setCallback_getDailyEvents(getCallback_getDailyEventsRT);
-        dataManager.getDailyEventsRT(famId);
+        dailyEventsDataManager.setCallback_getDailyEvents(getCallback_getDailyEventsRT);
+        dailyEventsDataManager.getDailyEventsRT(famId);
     }
 
     public static CalendarUtils getInstance(String famId)
     {
         if (single_instance == null) {
             if( Optional.ofNullable(famId).isPresent()) {
-                DataManager dataManager = new DataManager();
-                single_instance = new CalendarUtils(dataManager, famId);
+                DailyEventsDataManager dailyEventsDataManager = new DailyEventsDataManager();
+                single_instance = new CalendarUtils(dailyEventsDataManager, famId);
             }
         }
 
@@ -56,12 +56,6 @@ public class CalendarUtils {
     public static String formattedTime(LocalTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
         return time.format(formatter);
-    }
-
-    public static String formattedDuration(Duration duration) {
-        return String.format("%d:%02d",
-                duration.toHours(),
-                duration.toMinutes()/60);
     }
 
     public static String monthYearFromDate(LocalDate date) {

@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.R;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.iconsList;
 import com.example.famiorg.logic.User;
 import com.google.android.material.card.MaterialCardView;
@@ -24,7 +24,7 @@ public class Adapter_ChooseIcon extends RecyclerView.Adapter<Adapter_ChooseIcon.
 
     ChooseUserIconViewHolder currIcon;
 
-    DataManager dataManager = new DataManager();
+    UserDataManager userDataManager = new UserDataManager();
 
     public Adapter_ChooseIcon(Context context, User user) {
         this.context = context;
@@ -41,7 +41,7 @@ public class Adapter_ChooseIcon extends RecyclerView.Adapter<Adapter_ChooseIcon.
 
     @Override
     public void onBindViewHolder(@NonNull ChooseUserIconViewHolder holder, int position) {
-        if(user.getIcon() == iconsList.icons[position]) {
+        if (user.getIcon() == iconsList.icons[position]) {
             currIcon = holder;
             holder.chooseIcon();
         }
@@ -65,7 +65,7 @@ public class Adapter_ChooseIcon extends RecyclerView.Adapter<Adapter_ChooseIcon.
     }
 
     public void updateUserIcon(int icon) {
-        dataManager.updateUserIcon(FirebaseAuth.getInstance().getCurrentUser().getUid(), icon);
+        userDataManager.updateUserIcon(FirebaseAuth.getInstance().getCurrentUser().getUid(), icon);
     }
 
     public class ChooseUserIconViewHolder extends RecyclerView.ViewHolder {

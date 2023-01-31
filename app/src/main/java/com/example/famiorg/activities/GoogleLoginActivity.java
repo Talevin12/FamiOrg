@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.R;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,7 +35,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
     FirebaseAuth firebaseAuth;
 
-    DataManager dataManager = new DataManager();
+    UserDataManager userDataManager = new UserDataManager();
     Callback_DataManager<User> callback_setUser;
 
     @Override
@@ -57,7 +57,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         };
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
         // Initialize sign in options
         // the client-id is copied form
         // google-services.json file
@@ -89,7 +89,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
         if (firebaseUser != null) {
             // When user already sign in
             // redirect to profile activity
-            dataManager.getUser(firebaseUser.getUid(), false);
+            userDataManager.getUser(firebaseUser.getUid(), false);
         }
     }
 
@@ -142,7 +142,7 @@ public class GoogleLoginActivity extends AppCompatActivity {
 
                                                 }
 
-                                                dataManager.getUser(firebaseUser.getUid(), false);
+                                                userDataManager.getUser(firebaseUser.getUid(), false);
                                             }
 
                                             @Override

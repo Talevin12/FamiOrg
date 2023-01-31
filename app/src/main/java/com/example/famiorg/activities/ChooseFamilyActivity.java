@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_Invitations;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.FamilyDataManager;
+import com.example.famiorg.dataManagers.InvitationsDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.MemberInvitation;
 import com.example.famiorg.logic.User;
 import com.google.android.material.button.MaterialButton;
@@ -29,10 +31,12 @@ public class ChooseFamilyActivity extends AppCompatActivity {
     ArrayList<MemberInvitation> invitations;
 
     User user;
-    DataManager dataManager = new DataManager();
+    UserDataManager userDataManager = new UserDataManager();
+    InvitationsDataManager invitationsDataManager = new InvitationsDataManager();
+    FamilyDataManager familyDataManager = new FamilyDataManager();
     Callback_DataManager<User> callback_setUser;
     Callback_DataManager<ArrayList<MemberInvitation>> callback_getUserInvitations;
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,7 @@ public class ChooseFamilyActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        adapter_invitations = new Adapter_Invitations(this, invitations, dataManager);
+        adapter_invitations = new Adapter_Invitations(this, invitations, familyDataManager, invitationsDataManager);
         chooseFam_LST_invitations.setLayoutManager(new LinearLayoutManager(this));
 
         chooseFam_LST_invitations.setAdapter(adapter_invitations);
@@ -86,7 +90,7 @@ public class ChooseFamilyActivity extends AppCompatActivity {
         callback_setUser = (Callback_DataManager) object -> {
             user = (User) object;
 
-            dataManager.getUserInvitations(user.getEmail());
+            invitationsDataManager.getUserInvitations(user.getEmail());
         };
 
         callback_getUserInvitations = (Callback_DataManager) object -> {
@@ -97,7 +101,7 @@ public class ChooseFamilyActivity extends AppCompatActivity {
     }
 
     private void setCallbacks() {
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
-        dataManager.setCallback_getUserInvitations(callback_getUserInvitations);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
+        invitationsDataManager.setCallback_getUserInvitations(callback_getUserInvitations);
     }
 }

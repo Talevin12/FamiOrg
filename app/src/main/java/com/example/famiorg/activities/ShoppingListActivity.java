@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_GroceryProduct;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.callbacks.RecyclerRowMoveCallback;
+import com.example.famiorg.dataManagers.GroceriesDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.GroceryProduct;
 import com.example.famiorg.logic.User;
 import com.google.android.material.button.MaterialButton;
@@ -25,9 +26,10 @@ public class ShoppingListActivity extends AppCompatActivity {
     private MaterialButton shoppingList_BTN_add;
     private Adapter_GroceryProduct adapter_groceries;
 
-    DataManager dataManager = new DataManager();
+    UserDataManager userDataManager = new UserDataManager();
+    GroceriesDataManager groceriesDataManager = new GroceriesDataManager();
 
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     private User user;
 
@@ -75,7 +77,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             finish();
         }
         else {
-            dataManager.getGroceries(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            groceriesDataManager.getGroceries(FirebaseAuth.getInstance().getCurrentUser().getUid());
         }
     }
 
@@ -85,7 +87,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        adapter_groceries = new Adapter_GroceryProduct(this, user, dataManager);
+        adapter_groceries = new Adapter_GroceryProduct(this, user, groceriesDataManager);
         shoppingList_LST_groceries.setLayoutManager(new LinearLayoutManager(this));
 
         ItemTouchHelper.Callback callback = new RecyclerRowMoveCallback(adapter_groceries);
@@ -106,7 +108,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         callback_setUser = (Callback_DataManager) object -> {
             user = (User) object;
 
-            dataManager.getGroceries(((User) object).getFamilyId());
+            groceriesDataManager.getGroceries(((User) object).getFamilyId());
             initRecyclerView();
             initViews();
         };
@@ -124,10 +126,10 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void setCallbacks() {
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
-        dataManager.setCallback_addGroceryProduct(callback_addGroceryProduct);
-        dataManager.setCallback_updateGroceryProduct(callback_updateGroceryProduct);
-        dataManager.setCallback_moveGroceryProduct(callback_moveGroceryProduct);
-        dataManager.setCallback_removeGroceryProduct(callback_removeGroceryProduct);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
+        groceriesDataManager.setCallback_addGroceryProduct(callback_addGroceryProduct);
+        groceriesDataManager.setCallback_updateGroceryProduct(callback_updateGroceryProduct);
+        groceriesDataManager.setCallback_moveGroceryProduct(callback_moveGroceryProduct);
+        groceriesDataManager.setCallback_removeGroceryProduct(callback_removeGroceryProduct);
     }
 }

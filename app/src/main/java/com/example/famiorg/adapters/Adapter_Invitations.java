@@ -11,10 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.R;
 import com.example.famiorg.activities.MainActivity;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.FamilyDataManager;
+import com.example.famiorg.dataManagers.InvitationsDataManager;
 import com.example.famiorg.logic.MemberInvitation;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,8 @@ public class Adapter_Invitations extends RecyclerView.Adapter<Adapter_Invitation
 
     private Context context;
     private ArrayList<MemberInvitation> invitations;
-    private DataManager dataManager;
+    private InvitationsDataManager invitationsDataManager;
+    private FamilyDataManager familyDataManager;
 
     Callback_DataManager<Object> callback_setUserFamily = new Callback_DataManager<>() {
         @Override
@@ -39,13 +41,14 @@ public class Adapter_Invitations extends RecyclerView.Adapter<Adapter_Invitation
     };
 
 
-    public Adapter_Invitations(Context context, ArrayList<MemberInvitation> invitations, DataManager dataManager) {
+    public Adapter_Invitations(Context context, ArrayList<MemberInvitation> invitations, FamilyDataManager familyDataManager, InvitationsDataManager invitationsDataManager) {
         this.context = context;
         this.invitations = invitations;
-        this.dataManager = dataManager;
+        this.invitationsDataManager = invitationsDataManager;
+        this.familyDataManager = familyDataManager;
 
         invitations.sort(Comparator.comparing(MemberInvitation::getDate));
-        dataManager.setCallback_setUserFamily(callback_setUserFamily);
+        familyDataManager.setCallback_setUserFamily(callback_setUserFamily);
     }
 
     @NonNull
@@ -63,20 +66,20 @@ public class Adapter_Invitations extends RecyclerView.Adapter<Adapter_Invitation
         holder.invitation_LBL_text.setText(invitation.getUserSentEmail()+" invite you to join "+ invitation.getFamName() +" family.");
 
         holder.invitation_IMG_BTN_approve.setOnClickListener(v -> {
-            dataManager.updateUserFamilyAndAddToFamily(FirebaseAuth
+            familyDataManager.updateUserFamilyAndAddToFamily(FirebaseAuth
                                                             .getInstance()
                                                             .getCurrentUser()
                                                             .getUid(),
                                                     invitation.getFamId(), false);
 
-            dataManager.removeInvitation(invitation.getInvitationId());
+            invitationsDataManager.removeInvitation(invitation.getInvitationId());
         });
 
         holder.invitation_IMG_BTN_decline.setOnClickListener(v -> {
             invitations.remove(position);
             notifyDataSetChanged();
 
-            dataManager.removeInvitation(invitation.getInvitationId());
+            invitationsDataManager.removeInvitation(invitation.getInvitationId());
         });
     }
 

@@ -10,10 +10,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.famiorg.DataManager;
 import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.callbacks.Callback_DataManager;
+import com.example.famiorg.dataManagers.FamilyDataManager;
+import com.example.famiorg.dataManagers.InvitationsDataManager;
+import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.Family;
 import com.example.famiorg.logic.MemberInvitation;
 import com.example.famiorg.logic.User;
@@ -36,14 +38,16 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
 
     Family newFam;
 
-    DataManager dataManager = new DataManager();
+    UserDataManager userDataManager = new UserDataManager();
+    FamilyDataManager familyDataManager = new FamilyDataManager();
+    InvitationsDataManager invitationsDataManager = new InvitationsDataManager();
 
     Callback_DataManager<User> callback_setUser;
     Callback_DataManager<String> callback_createFamily;
     Callback_DataManager<Object> callback_setUserFamily;
     Callback_DataManager<Boolean> callback_createInvitation;
 
-    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(dataManager, this);
+    GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +87,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
                             .setFamilyName(createFam_EDIT_famName.getText().toString());
                     newFam.addMember(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                    dataManager.createFamily(newFam);
+                    familyDataManager.createFamily(newFam);
                 } else {
                     Toast.makeText(this, "Family name is empty", Toast.LENGTH_SHORT).show();
                 }
@@ -105,7 +109,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
                             .setUserRecvEmail(createFam_EDIT_inviteMember.getText().toString())
                             .setDate(new Date());
 
-                    dataManager.createInvitation(memberInvitation);
+                    invitationsDataManager.createInvitation(memberInvitation);
                 } else {
                     Toast.makeText(this, "You can't send invitation to yourself", Toast.LENGTH_SHORT).show();
                 }
@@ -118,7 +122,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
 
         callback_createFamily = (Callback_DataManager) object -> {
             user.setFamilyId((String) object);
-            dataManager.updateUserFamilyAndAddToFamily(FirebaseAuth.getInstance().getCurrentUser().getUid(), (String) object, true);
+            familyDataManager.updateUserFamilyAndAddToFamily(FirebaseAuth.getInstance().getCurrentUser().getUid(), (String) object, true);
         };
 
         callback_setUserFamily = (Callback_DataManager) object -> {
@@ -138,10 +142,10 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
     }
 
     private void setCallbacks() {
-        dataManager.setCallBack_setUserProtocol(callback_setUser);
-        dataManager.setCallback_createFamily(callback_createFamily);
-        dataManager.setCallback_setUserFamily(callback_setUserFamily);
-        dataManager.setCallback_createInvitation(callback_createInvitation);
+        userDataManager.setCallBack_setUserProtocol(callback_setUser);
+        familyDataManager.setCallback_createFamily(callback_createFamily);
+        familyDataManager.setCallback_setUserFamily(callback_setUserFamily);
+        invitationsDataManager.setCallback_createInvitation(callback_createInvitation);
     }
 
     private void openMainActivity() {
