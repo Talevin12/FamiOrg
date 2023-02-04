@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="10dp"
+        android:backgroundTint="@color/gray"
         android:hint="Family name"
         android:textAlignment="center"
         android:textColor="@color/black"

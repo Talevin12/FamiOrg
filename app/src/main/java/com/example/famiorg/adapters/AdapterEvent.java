@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.CalendarUtils;
 import com.example.famiorg.R;
+import com.example.famiorg.assets.CalendarUtils;
 import com.example.famiorg.logic.DailyEvent;
 import com.example.famiorg.logic.User;
 

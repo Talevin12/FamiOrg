@@ -10,8 +10,9 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.famiorg.R;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.iconsList;
 import com.example.famiorg.dataManagers.UserDataManager;
-import com.example.famiorg.iconsList;
 import com.example.famiorg.logic.User;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,9 +27,13 @@ public class Adapter_ChooseIcon extends RecyclerView.Adapter<Adapter_ChooseIcon.
 
     UserDataManager userDataManager = new UserDataManager();
 
+    GoogleLoginAssets googleLoginAssets;
+
     public Adapter_ChooseIcon(Context context, User user) {
         this.context = context;
         this.user = user;
+
+        googleLoginAssets = new GoogleLoginAssets(userDataManager, context);
     }
 
     @NonNull
@@ -65,7 +70,7 @@ public class Adapter_ChooseIcon extends RecyclerView.Adapter<Adapter_ChooseIcon.
     }
 
     public void updateUserIcon(int icon) {
-        userDataManager.updateUserIcon(FirebaseAuth.getInstance().getCurrentUser().getUid(), icon);
+        userDataManager.updateUserIcon(googleLoginAssets.getUserId(), icon);
     }
 
     public class ChooseUserIconViewHolder extends RecyclerView.ViewHolder {

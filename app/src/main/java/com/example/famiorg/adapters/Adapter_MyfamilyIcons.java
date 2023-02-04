@@ -4,9 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.famiorg.R;
+import com.example.famiorg.assets.ImageUtils;
 import com.example.famiorg.logic.User;
 
 import java.util.ArrayList;
@@ -45,12 +43,7 @@ public class Adapter_MyfamilyIcons extends RecyclerView.Adapter<Adapter_Myfamily
         holder.userIcon_IMG_icon.setOnClickListener(v -> {
             Toast.makeText(context,member.getName(),Toast.LENGTH_SHORT).show();
 
-            RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            anim.setInterpolator(new LinearInterpolator());
-            anim.setRepeatCount(Animation.ABSOLUTE);
-            anim.setDuration(700);
-
-            holder.userIcon_IMG_icon.startAnimation(anim);
+            ImageUtils.getInstance().rotateIcon(holder.userIcon_IMG_icon);
         });
     }
 

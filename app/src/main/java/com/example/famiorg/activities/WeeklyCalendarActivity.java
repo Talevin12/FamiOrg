@@ -1,6 +1,5 @@
 package com.example.famiorg.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -10,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.CalendarUtils;
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.AdapterCalendar;
 import com.example.famiorg.adapters.AdapterEvent;
+import com.example.famiorg.assets.CalendarUtils;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
 import com.example.famiorg.dataManagers.UserDataManager;
@@ -47,7 +47,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Adapter
         setContentView(R.layout.activity_weekly_calendar);
 
         findViews();
-//        setWeekView();
+
         initCallbacks();
         setCallbacks();
     }
@@ -55,7 +55,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Adapter
     @Override
     protected void onResume() {
         super.onResume();
-//        setWeekView();
+
         if (!googleLoginAssets.checkSignIn()) {
             finish();
         }
@@ -128,6 +128,6 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Adapter
     }
 
     public void newEventAction(View view) {
-        startActivity(new Intent(this, CreateEventActivity.class));
+        IntentUtils.getInstance().openPage(this, CreateEventActivity.class);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.famiorg.activities;
 
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -9,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapater_ImagePosts;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.ImageUtils;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
 import com.example.famiorg.dataManagers.ImageDataManager;
@@ -21,8 +21,6 @@ import com.example.famiorg.logic.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
-
-import jp.wasabeef.blurry.Blurry;
 
 public class ImageCatalogActivity extends AppCompatActivity {
 
@@ -50,16 +48,9 @@ public class ImageCatalogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_catalog);
 
 //        String background ="https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?w=2000";
-//        Glide.with(this)
-//                .load(background)
-//                .centerCrop()
-//                .into((AppCompatImageView) findViewById(R.id.imageCatalog_IMG_background));
+//        ImageUtils.getInstance().load(this, background, findViewById(R.id.imageCatalog_IMG_background));
 
-        Blurry.with(this)
-                .sampling(5)
-                .async()
-                .from(BitmapFactory.decodeResource(getResources(), R.drawable.image_catalog_background))
-                .into(findViewById(R.id.imageCatalog_IMG_background));
+        ImageUtils.getInstance().loadBlurry(this, getResources(), R.drawable.image_catalog_background, findViewById(R.id.imageCatalog_IMG_background), 5);
 
         findViews();
         initViews();
@@ -85,10 +76,7 @@ public class ImageCatalogActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        imageCatalog_BTN_addImage.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddImageActivity.class);
-            startActivity(intent);
-        });
+        imageCatalog_BTN_addImage.setOnClickListener(v -> IntentUtils.getInstance().openPage(this, AddImageActivity.class));
     }
 
     private void initRecyclerView() {

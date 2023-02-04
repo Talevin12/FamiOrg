@@ -1,6 +1,6 @@
 package com.example.famiorg.logic;
 
-import com.example.famiorg.iconsList;
+import com.example.famiorg.assets.iconsList;
 
 import java.io.Serializable;
 import java.util.Random;

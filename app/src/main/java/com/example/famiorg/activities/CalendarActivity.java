@@ -1,6 +1,5 @@
 package com.example.famiorg.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -10,10 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.CalendarUtils;
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.AdapterCalendar;
+import com.example.famiorg.assets.CalendarUtils;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.DayCalendar;
@@ -107,11 +107,11 @@ public class CalendarActivity extends AppCompatActivity implements AdapterCalend
     public void onItemClick(int position, DayCalendar dayCalendar) {
         if (dayCalendar.getDate() != null) {
             CalendarUtils.getInstance(null).setSelectedDate(dayCalendar.getDate());
-            startActivity(new Intent(this, WeeklyCalendarActivity.class));
+            IntentUtils.getInstance().openPage(this, WeeklyCalendarActivity.class);
         }
     }
 
     public void weeklyAction(View view) {
-        startActivity(new Intent(this, WeeklyCalendarActivity.class));
+        IntentUtils.getInstance().openPage(this, WeeklyCalendarActivity.class);
     }
 }

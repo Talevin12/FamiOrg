@@ -10,9 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.famiorg.CalendarUtils;
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
+import com.example.famiorg.assets.CalendarUtils;
+import com.example.famiorg.assets.GoogleLoginAssets;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.DailyEventsDataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
@@ -133,7 +133,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
 
                 for (int j = 0; j < selectedMembersEmailsList.size(); j++) {
-                    stringBuilder.append("* " + selectedMembersEmailsList.get(j));
+                    stringBuilder.append("* ").append(selectedMembersEmailsList.get(j));
                     if (j != selectedMembersEmailsList.size() - 1) {
                         stringBuilder.append("\n");
                     }

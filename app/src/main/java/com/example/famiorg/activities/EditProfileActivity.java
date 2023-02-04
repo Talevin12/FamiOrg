@@ -1,6 +1,5 @@
 package com.example.famiorg.activities;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_ChooseIcon;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.ImageUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
 import com.example.famiorg.dataManagers.InvitationsDataManager;
@@ -28,8 +28,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Date;
-
-import jp.wasabeef.blurry.Blurry;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -63,16 +61,9 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
 //        String background ="https://img.freepik.com/free-vector/paper-style-white-monochrome-background_52683-66444.jpg?w=2000";
-//        Glide.with(this)
-//                .load(background)
-//                .centerCrop()
-//                .into((AppCompatImageView) findViewById(R.id.editProfile_IMG_background));
+//        ImageUtils.getInstance().load(this, background, findViewById(R.id.editProfile_IMG_background));
 
-        Blurry.with(this)
-                .sampling(1)
-                .async()
-                .from(BitmapFactory.decodeResource(getResources(), R.drawable.pink_watercolor_texture))
-                .into(findViewById(R.id.editProfile_IMG_background));
+        ImageUtils.getInstance().loadBlurry(this, getResources(), R.drawable.pink_watercolor_texture, findViewById(R.id.editProfile_IMG_background), 1);
 
         findViews();
         initViews();
@@ -104,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void initViews() {
         editProfile_IMG_BTN_checkEditName.setOnClickListener(v -> {
-            userDataManager.updateUserName(FirebaseAuth.getInstance().getCurrentUser().getUid(), editProfile_EDIT_name.getText().toString());
+            userDataManager.updateUserName(googleLoginAssets.getUserId(), editProfile_EDIT_name.getText().toString());
             user.setName(editProfile_EDIT_name.getText().toString());
             v.setVisibility(View.INVISIBLE);
         });
@@ -147,7 +138,7 @@ public class EditProfileActivity extends AppCompatActivity {
             alert.setTitle("Exit family");
             alert.setMessage("Are you sure you want to exit family?");
             alert.setPositiveButton("Yes", (dialog, which) -> {
-                familyDataManager.removeMemberFromFamily(FirebaseAuth.getInstance().getCurrentUser().getUid(), user.getFamilyId());
+                familyDataManager.removeMemberFromFamily(googleLoginAssets.getUserId(), user.getFamilyId());
                 dialog.dismiss();
             });
 

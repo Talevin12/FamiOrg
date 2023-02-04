@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.famiorg.R;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.UserDataManager;
 import com.example.famiorg.logic.User;
@@ -46,15 +47,14 @@ public class GoogleLoginActivity extends AppCompatActivity {
 
         signInButton = findViewById(R.id.sign_in_button);
 
+        IntentUtils.initHelper();
         callback_setUser = (Callback_DataManager) object -> {
             User user = (User) object;
 
             if(user.getFamilyId() != null) {
-                startActivity(new Intent(GoogleLoginActivity.this, MainActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                IntentUtils.getInstance().openPageWithFlag(this, MainActivity.class, Intent.FLAG_ACTIVITY_NEW_TASK);
             } else {
-                startActivity(new Intent(GoogleLoginActivity.this, ChooseFamilyActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                IntentUtils.getInstance().openPageWithFlag(this, ChooseFamilyActivity.class, Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         };
         userDataManager.setCallBack_setUserProtocol(callback_setUser);
@@ -128,33 +128,35 @@ public class GoogleLoginActivity extends AppCompatActivity {
 
                                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-                                        db.getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if(!snapshot.hasChild(firebaseUser.getUid())){
-                                                    User newUser = new User()
-                                                            .setName(firebaseUser.getDisplayName().split(" ")[0])
-                                                            .setEmail(firebaseUser.getEmail());
+                                        if (firebaseUser != null) {
+                                            db.getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (!snapshot.hasChild(firebaseUser.getUid())) {
+                                                        User newUser = new User()
+                                                                .setName(firebaseUser.getDisplayName().split(" ")[0])
+                                                                .setEmail(firebaseUser.getEmail());
 
-                                                    db.getReference("Users")
-                                                            .child(firebaseUser.getUid())
-                                                            .setValue(newUser);
+                                                        db.getReference("Users")
+                                                                .child(firebaseUser.getUid())
+                                                                .setValue(newUser);
 
+                                                    }
+
+                                                    userDataManager.getUser(firebaseUser.getUid(), false);
                                                 }
 
-                                                userDataManager.getUser(firebaseUser.getUid(), false);
-                                            }
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-                                    } else {
-                                        // When task is unsuccessful
-                                        // Display Toast
-                                        displayToast("Authentication Failed :" + task.getException()
-                                                .getMessage());
+                                                }
+                                            });
+                                        } else {
+                                            // When task is unsuccessful
+                                            // Display Toast
+                                            displayToast("Authentication Failed :" + task.getException()
+                                                    .getMessage());
+                                        }
                                     }
                                 });
 

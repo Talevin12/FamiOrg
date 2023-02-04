@@ -1,6 +1,5 @@
 package com.example.famiorg.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -8,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_Invitations;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
 import com.example.famiorg.dataManagers.InvitationsDataManager;
@@ -68,8 +68,7 @@ public class ChooseFamilyActivity extends AppCompatActivity {
 
     private void initViews() {
         chooseFam_BTN_CreateNewFam.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CreateNewFamilyActivity.class);
-            startActivity(intent);
+            IntentUtils.getInstance().openPage(this, CreateNewFamilyActivity.class);
             finish();
         });
 
@@ -80,7 +79,7 @@ public class ChooseFamilyActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        adapter_invitations = new Adapter_Invitations(this, invitations, familyDataManager, invitationsDataManager);
+        adapter_invitations = new Adapter_Invitations(this, invitations, familyDataManager, invitationsDataManager, googleLoginAssets);
         chooseFam_LST_invitations.setLayoutManager(new LinearLayoutManager(this));
 
         chooseFam_LST_invitations.setAdapter(adapter_invitations);

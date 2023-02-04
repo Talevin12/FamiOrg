@@ -1,11 +1,7 @@
 package com.example.famiorg.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +10,11 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_MyfamilyIcons;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.ImageUtils;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
 import com.example.famiorg.dataManagers.UserDataManager;
@@ -99,13 +96,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        main_IMG_myIcon.setOnClickListener(v -> flipIcon(main_IMG_myIcon));
+        main_IMG_myIcon.setOnClickListener(v -> ImageUtils.getInstance().rotateIcon(main_IMG_myIcon));
 
-        main_BTN_settings.setOnClickListener(v -> openEditProfile());
+        main_BTN_settings.setOnClickListener(v -> IntentUtils.getInstance().openPage(this, EditProfileActivity.class));
 
-        main_IMG_BTN_calendar.setOnClickListener(v -> openCalendar());
-        main_IMG_BTN_shoppingList.setOnClickListener(v -> openShoppingList());
-        main_IMG_BTN_images.setOnClickListener(v -> openImageCatalog());
+        main_IMG_BTN_calendar.setOnClickListener(v -> IntentUtils.getInstance().openPage(this, CalendarActivity.class));
+        main_IMG_BTN_shoppingList.setOnClickListener(v -> IntentUtils.getInstance().openPage(this, ShoppingListActivity.class));
+        main_IMG_BTN_images.setOnClickListener(v -> IntentUtils.getInstance().openPage(this, ImageCatalogActivity.class));
 
         main_BTN_signout.setOnClickListener(v -> {
             finish();
@@ -148,29 +145,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewsImages() {
+        ImageUtils.initHelper();
+
         String background = "https://img.freepik.com/free-photo/top-view-background-beautiful-white-grey-brown-cream-blue-background_140725-72219.jpg?w=2000";
-        Glide.with(this)
-                .load(background)
-                .centerCrop()
-                .into((AppCompatImageView) findViewById(R.id.main_IMG_background));
+        ImageUtils.getInstance().load(this, background, findViewById(R.id.main_IMG_background));
 
         String calendarImg = "https://thumbs.dreamstime.com/b/red-pin-event-calendar-background-close-up-time-red-pin-event-calendar-background-close-up-time-149540392.jpg";
-        Glide.with(this)
-                .load(calendarImg)
-                .centerCrop()
-                .into(main_IMG_BTN_calendar);
+        ImageUtils.getInstance().load(this, calendarImg, main_IMG_BTN_calendar);
 
         String imagesImg = "https://dvyvvujm9h0uq.cloudfront.net/com/articles/1585856768-family-2.jpg";
-        Glide.with(this)
-                .load(imagesImg)
-                .centerCrop()
-                .into(main_IMG_BTN_images);
+        ImageUtils.getInstance().load(this, imagesImg, main_IMG_BTN_images);
 
         String shoppingListImg = "https://img.freepik.com/premium-photo/shopping-list-shopping-cart-wooden-background_165146-326.jpg?w=2000";
-        Glide.with(this)
-                .load(shoppingListImg)
-                .centerCrop()
-                .into(main_IMG_BTN_shoppingList);
+        ImageUtils.getInstance().load(this, shoppingListImg, main_IMG_BTN_shoppingList);
     }
 
     private void initRecyclerView() {
@@ -187,35 +174,5 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFamilyNameInUI(String familyName) {
         main_LBL_familyName.setText(familyName);
-    }
-
-    private void flipIcon(AppCompatImageView icon) {
-        RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        anim.setInterpolator(new LinearInterpolator());
-        anim.setRepeatCount(Animation.ABSOLUTE);
-        anim.setDuration(700);
-
-        // Start animating the image
-        icon.startAnimation(anim);
-    }
-
-    private void openCalendar() {
-        Intent intent = new Intent(this, CalendarActivity.class);
-        startActivity(intent);
-    }
-
-    private void openShoppingList() {
-        Intent intent = new Intent(this, ShoppingListActivity.class);
-        startActivity(intent);
-    }
-
-    private void openImageCatalog() {
-        Intent intent = new Intent(this, ImageCatalogActivity.class);
-        startActivity(intent);
-    }
-
-    private void openEditProfile() {
-        Intent intent = new Intent(this, EditProfileActivity.class);
-        startActivity(intent);
     }
 }

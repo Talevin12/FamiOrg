@@ -9,11 +9,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageView;
 
-import com.bumptech.glide.Glide;
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.ImageUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.ImageDataManager;
 import com.example.famiorg.dataManagers.UserDataManager;
@@ -50,20 +49,22 @@ public class AddImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_image);
 
         String background = "https://img.freepik.com/free-vector/hand-drawn-minimal-background_23-2149022113.jpg?w=2000";
-        Glide.with(this)
-                .load(background)
-                .centerCrop()
-                .into((AppCompatImageView) findViewById(R.id.addImage_IMG_background));
-
-        if (!googleLoginAssets.checkSignIn()) {
-            finish();
-        }
+        ImageUtils.getInstance().load(this, background, findViewById(R.id.addImage_IMG_background));
 
         findViews();
         initViews();
 
         initCallbacks();
         setCallbacks();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!googleLoginAssets.checkSignIn()) {
+            finish();
+        }
     }
 
     private void findViews() {
@@ -116,7 +117,7 @@ public class AddImageActivity extends AppCompatActivity {
     }
 
     private void initCallbacks() {
-        callback_setUser = (Callback_DataManager) object -> user = (User) object;
+        callback_setUser = object -> user = (User) object;
     }
 
     private void setCallbacks() {

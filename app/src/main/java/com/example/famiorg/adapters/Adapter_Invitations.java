@@ -2,7 +2,6 @@ package com.example.famiorg.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.famiorg.R;
 import com.example.famiorg.activities.MainActivity;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
 import com.example.famiorg.dataManagers.InvitationsDataManager;
@@ -30,22 +31,23 @@ public class Adapter_Invitations extends RecyclerView.Adapter<Adapter_Invitation
     private InvitationsDataManager invitationsDataManager;
     private FamilyDataManager familyDataManager;
 
+    GoogleLoginAssets googleLoginAssets;
+
     Callback_DataManager<Object> callback_setUserFamily = new Callback_DataManager<>() {
         @Override
         public void getObject(Object object) {
-            Intent intent = new Intent(context, MainActivity.class);
-            context.startActivity(intent);
-
-            ((Activity)context).finish();
+            IntentUtils.getInstance().openPage(context, MainActivity.class);
+            ((Activity) context).finish();
         }
     };
 
 
-    public Adapter_Invitations(Context context, ArrayList<MemberInvitation> invitations, FamilyDataManager familyDataManager, InvitationsDataManager invitationsDataManager) {
+    public Adapter_Invitations(Context context, ArrayList<MemberInvitation> invitations, FamilyDataManager familyDataManager, InvitationsDataManager invitationsDataManager, GoogleLoginAssets googleLoginAssets) {
         this.context = context;
         this.invitations = invitations;
         this.invitationsDataManager = invitationsDataManager;
         this.familyDataManager = familyDataManager;
+        this.googleLoginAssets = googleLoginAssets;
 
         invitations.sort(Comparator.comparing(MemberInvitation::getDate));
         familyDataManager.setCallback_setUserFamily(callback_setUserFamily);
@@ -63,14 +65,12 @@ public class Adapter_Invitations extends RecyclerView.Adapter<Adapter_Invitation
     public void onBindViewHolder(@NonNull InvitationViewHolder holder, int position) {
         MemberInvitation invitation = invitations.get(position);
 
-        holder.invitation_LBL_text.setText(invitation.getUserSentEmail()+" invite you to join "+ invitation.getFamName() +" family.");
+        holder.invitation_LBL_text.setText(invitation.getUserSentEmail() + " invite you to join " + invitation.getFamName() + " family.");
 
         holder.invitation_IMG_BTN_approve.setOnClickListener(v -> {
-            familyDataManager.updateUserFamilyAndAddToFamily(FirebaseAuth
-                                                            .getInstance()
-                                                            .getCurrentUser()
-                                                            .getUid(),
-                                                    invitation.getFamId(), false);
+            familyDataManager.updateUserFamilyAndAddToFamily(googleLoginAssets.getUserId(),
+                                                                invitation.getFamId(),
+                                                                false);
 
             invitationsDataManager.removeInvitation(invitation.getInvitationId());
         });

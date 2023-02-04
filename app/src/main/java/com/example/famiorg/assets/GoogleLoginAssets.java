@@ -1,4 +1,4 @@
-package com.example.famiorg;
+package com.example.famiorg.assets;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -34,7 +34,7 @@ public class GoogleLoginAssets {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if(firebaseUser != null) {
-            userDataManager.getUser(firebaseUser.getUid(), true);
+            userDataManager.getUser(getUserId(), true);
             return true;
         } else {
             return false;

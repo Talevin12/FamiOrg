@@ -1,4 +1,4 @@
-package com.example.famiorg;
+package com.example.famiorg.assets;
 
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.DailyEventsDataManager;

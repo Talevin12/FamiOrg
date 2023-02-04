@@ -1,6 +1,5 @@
 package com.example.famiorg.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -10,8 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
+import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
 import com.example.famiorg.dataManagers.InvitationsDataManager;
@@ -85,14 +85,14 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
                 if (!createFam_EDIT_famName.getText().toString().isBlank()) {
                     newFam = new Family()
                             .setFamilyName(createFam_EDIT_famName.getText().toString());
-                    newFam.addMember(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    newFam.addMember(googleLoginAssets.getUserId());
 
                     familyDataManager.createFamily(newFam);
                 } else {
                     Toast.makeText(this, "Family name is empty", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                openMainActivity();
+                IntentUtils.getInstance().openPage(this, MainActivity.class);
                 finish();
             }
         });
@@ -122,7 +122,7 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
 
         callback_createFamily = (Callback_DataManager) object -> {
             user.setFamilyId((String) object);
-            familyDataManager.updateUserFamilyAndAddToFamily(FirebaseAuth.getInstance().getCurrentUser().getUid(), (String) object, true);
+            familyDataManager.updateUserFamilyAndAddToFamily(googleLoginAssets.getUserId(), (String) object, true);
         };
 
         callback_setUserFamily = (Callback_DataManager) object -> {
@@ -146,10 +146,5 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
         familyDataManager.setCallback_createFamily(callback_createFamily);
         familyDataManager.setCallback_setUserFamily(callback_setUserFamily);
         invitationsDataManager.setCallback_createInvitation(callback_createInvitation);
-    }
-
-    private void openMainActivity() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
     }
 }

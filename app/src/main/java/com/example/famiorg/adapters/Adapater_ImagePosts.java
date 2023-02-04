@@ -4,23 +4,21 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.famiorg.R;
+import com.example.famiorg.assets.ImageUtils;
 import com.example.famiorg.logic.ImagePost;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 
 public class Adapater_ImagePosts extends RecyclerView.Adapter<Adapater_ImagePosts.ImagePostViewHolder> {
 
@@ -32,6 +30,15 @@ public class Adapater_ImagePosts extends RecyclerView.Adapter<Adapater_ImagePost
         this.imagePosts = imagePosts;
 
         imagePosts.sort(Comparator.comparing(ImagePost::getPublishDate));
+        for(int i = 0; i < imagePosts.size(); i++) { //Display only images from last month
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+            c.add(Calendar.MONTH, -1);
+            Date dt = c.getTime();
+            if(imagePosts.get(i).getPublishDate().before(dt)) {
+                imagePosts.remove(i--);
+            }
+        }
     }
 
     @NonNull
@@ -50,11 +57,7 @@ public class Adapater_ImagePosts extends RecyclerView.Adapter<Adapater_ImagePost
         holder.imagepost_LBL_name.setText(imagePost.getUserName());
         holder.imagepost_LBL_date.setText(new SimpleDateFormat("dd-MM-yyyy").format(imagePost.getPublishDate()));
 
-        Glide.with(context)
-                .load(imagePost.getImageLink())
-                .placeholder(R.color.white)
-                .apply(new RequestOptions().override(720, 720))
-                .into(holder.imagepost_IMG_image);
+        ImageUtils.getInstance().loadImageForPost(context, imagePost.getImageLink(), holder.imagepost_IMG_image);
 
         holder.imagepost_LBL_description.setText(imagePost.getDescription());
     }
@@ -82,17 +85,7 @@ public class Adapater_ImagePosts extends RecyclerView.Adapter<Adapater_ImagePost
             imagepost_IMG_image = itemView.findViewById(R.id.imagepost_IMG_image);
             imagepost_LBL_description = itemView.findViewById(R.id.imagepost_LBL_description);
 
-            imagepost_IMG_icon.setOnClickListener(v -> flipIcon((AppCompatImageView) v));
-        }
-
-        private void flipIcon(AppCompatImageView icon) {
-            RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            anim.setInterpolator(new LinearInterpolator());
-            anim.setRepeatCount(Animation.ABSOLUTE);
-            anim.setDuration(700);
-
-            // Start animating the image
-            icon.startAnimation(anim);
+            imagepost_IMG_icon.setOnClickListener(v -> ImageUtils.getInstance().rotateIcon((AppCompatImageView) v));
         }
     }
 }

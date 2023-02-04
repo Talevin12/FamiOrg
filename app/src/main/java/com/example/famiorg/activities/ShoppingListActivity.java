@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.famiorg.GoogleLoginAssets;
 import com.example.famiorg.R;
 import com.example.famiorg.adapters.Adapter_GroceryProduct;
+import com.example.famiorg.assets.GoogleLoginAssets;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.callbacks.RecyclerRowMoveCallback;
 import com.example.famiorg.dataManagers.GroceriesDataManager;
@@ -77,7 +77,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             finish();
         }
         else {
-            groceriesDataManager.getGroceries(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            groceriesDataManager.getGroceries(googleLoginAssets.getUserId());
         }
     }
 
