@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:adjustViewBounds="true"
+    android:background="@drawable/main_background"
     android:fillViewport="true">
 
     <RelativeLayout
@@ -61,6 +62,8 @@
                 android:layout_below="@+id/addImage_EDITTEXT_description"
                 android:layout_centerHorizontal="true"
                 android:backgroundTint="@color/black"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
                 android:text="Submit"
                 android:textAlignment="center"
                 android:textColor="@color/white"

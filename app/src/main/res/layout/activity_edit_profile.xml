@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/main_background"
     tools:context=".activities.EditProfileActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -60,7 +60,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@+id/editProfile_EDIT_name"
                     android:visibility="visible"
-                    app:icon="@drawable/ic_check" />
+                    app:icon="@drawable/ic_check"
+                    app:iconTint="@color/white" />
 
             </RelativeLayout>
 
@@ -116,7 +117,8 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/createFam_EDIT_inviteMember"
-                    app:icon="@drawable/ic_check" />
+                    app:icon="@drawable/ic_check"
+                    app:iconTint="@color/white" />
 
             </LinearLayout>
 

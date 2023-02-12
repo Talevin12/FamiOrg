@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/main_IMG_background"
@@ -10,26 +11,25 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_IMG_myIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp" />
+
     <TextView
         android:id="@+id/main_LBL_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_alignBottom="@+id/main_IMG_myIcon"
+        android:layout_marginBottom="-5dp"
         android:layout_toEndOf="@+id/main_IMG_myIcon"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="26dp"
         android:textStyle="bold" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/main_IMG_myIcon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_toStartOf="@+id/main_BTN_settings" />
-
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/main_BTN_settings"
@@ -40,7 +40,7 @@
         android:layout_marginEnd="10dp"
         app:backgroundTint="#E8BFB6B6"
         app:icon="@drawable/ic_settings"
-        app:iconTint="#03A9F4" />
+        app:iconTint="@color/black" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -84,8 +84,7 @@
         android:id="@+id/main_LST_familyIcons"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_above="@+id/main_BTN_signout"
-        android:layout_marginBottom="5dp" />
+        android:layout_above="@+id/main_BTN_signout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/main_BTN_signout"
@@ -95,7 +94,7 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="#8C8A8A"
         android:text="Sign out"
-        android:textColor="#E80202"
+        android:textColor="@color/white"
         android:textSize="20dp" />
 
 </RelativeLayout>

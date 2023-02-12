@@ -41,6 +41,8 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Adapter
     Callback_DataManager<User> callback_setUser;
     Callback_DataManager<User> callback_getFamilyMembers;
 
+    CalendarUtils.CallBack_NewCalendarEvent callBack_newCalendarEvent = () -> setWeekView();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Adapter
             if (user.getFamilyId() == null) {
                 finish();
             } else {
+                CalendarUtils.getInstance(null).callBack_newCalendarEvent = callBack_newCalendarEvent;
                 setWeekView();
             }
         };

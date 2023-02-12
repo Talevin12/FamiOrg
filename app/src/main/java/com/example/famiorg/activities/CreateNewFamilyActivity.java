@@ -136,7 +136,9 @@ public class CreateNewFamilyActivity extends AppCompatActivity {
             createFam_EDIT_inviteMember.setText("");
 
             if (!(Boolean) object) {
-                Toast.makeText(this, "No User with this email found", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "No User with this email found", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Invitation sent", Toast.LENGTH_SHORT).show();
             }
         };
     }

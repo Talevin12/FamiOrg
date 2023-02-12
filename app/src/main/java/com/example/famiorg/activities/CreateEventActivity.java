@@ -1,6 +1,7 @@
 package com.example.famiorg.activities;
 
 import android.app.TimePickerDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.famiorg.R;
 import com.example.famiorg.assets.CalendarUtils;
 import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.ImageUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.DailyEventsDataManager;
 import com.example.famiorg.dataManagers.FamilyDataManager;
@@ -184,12 +186,18 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
     public void saveEventAction(View view) {
-        if (!createEvent_ET_title.getText().toString().isBlank() && !createEvent_ET_description.getText().toString().isBlank()) {
+        if (!createEvent_ET_title.getText().toString().isBlank() &&
+                !createEvent_ET_description.getText().toString().isBlank() &&
+                    !createEvent_BTN_startTime.getText().toString().equalsIgnoreCase("pick start time") &&
+                        !createEvent_BTN_endTime.getText().toString().equalsIgnoreCase("pick end time") &&
+                            !createEvent_MULTI_CHOICE_members.getText().toString().isBlank()) {
             dailyEvent.setTitle(createEvent_ET_title.getText().toString());
             dailyEvent.setDescription(createEvent_ET_description.getText().toString());
 
             dailyEventsDataManager.createDailyEvent(user.getFamilyId(), dailyEvent);
             finish();
+        } else {
+            Toast.makeText(this, "Some fields are empty", Toast.LENGTH_SHORT).show();
         }
     }
 }

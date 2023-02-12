@@ -6,14 +6,14 @@
 
     <RelativeLayout
         android:id="@+id/cellDayLayout"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:background="@drawable/rounded_corners_rectangle2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.5">
 
         <TextView
             android:id="@+id/cellDayText"

@@ -147,13 +147,10 @@ public class MainActivity extends AppCompatActivity {
     private void setViewsImages() {
         ImageUtils.initHelper();
 
-        String background = "https://img.freepik.com/free-photo/top-view-background-beautiful-white-grey-brown-cream-blue-background_140725-72219.jpg?w=2000";
-        ImageUtils.getInstance().load(this, background, findViewById(R.id.main_IMG_background));
-
         String calendarImg = "https://thumbs.dreamstime.com/b/red-pin-event-calendar-background-close-up-time-red-pin-event-calendar-background-close-up-time-149540392.jpg";
         ImageUtils.getInstance().load(this, calendarImg, main_IMG_BTN_calendar);
 
-        String imagesImg = "https://dvyvvujm9h0uq.cloudfront.net/com/articles/1585856768-family-2.jpg";
+        String imagesImg = "https://lh3.googleusercontent.com/PGdgseSSyrlvvvO-dg_VBqvW2_jIj8zKS_0no4wUbxsTSQ4OdFFzAFq20WIfbUCf78dMQwR1KQ4F5p-bBr963zFnizn5Yvyhzq5kOCZp";
         ImageUtils.getInstance().load(this, imagesImg, main_IMG_BTN_images);
 
         String shoppingListImg = "https://img.freepik.com/premium-photo/shopping-list-shopping-cart-wooden-background_165146-326.jpg?w=2000";

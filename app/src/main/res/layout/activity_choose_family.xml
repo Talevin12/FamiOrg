@@ -64,7 +64,7 @@
             android:padding="10dp"
             android:text="Sign out"
             android:textAlignment="center"
-            android:textColor="#E80202"
+            android:textColor="@color/white"
             android:textSize="18dp" />
 
     </RelativeLayout>

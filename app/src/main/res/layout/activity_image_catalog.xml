@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_background"
     android:keepScreenOn="true"
     tools:context=".activities.ImageCatalogActivity">
 
@@ -26,6 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
+        android:backgroundTint="#BFBFBF"
         app:icon="@drawable/ic_plus"
-        app:iconTint="@color/black" />
+        app:iconTint="#539853" />
 </RelativeLayout>

@@ -19,7 +19,11 @@ public class CalendarUtils {
 
     private ArrayList<DailyEvent> dailyEvents = new ArrayList<>();
 
-    Callback_DataManager<DailyEvent> getCallback_getDailyEventsRT = (Callback_DataManager) object -> dailyEvents.add((DailyEvent) object);
+    Callback_DataManager<DailyEvent> getCallback_getDailyEventsRT = (Callback_DataManager) object -> {
+        dailyEvents.add((DailyEvent) object);
+        callBack_newCalendarEvent.resetView();
+    };
+    public static CallBack_NewCalendarEvent callBack_newCalendarEvent;
 
     public CalendarUtils(DailyEventsDataManager dailyEventsDataManager, String famId) {
         selectedDate = LocalDate.now().plusMonths(1);
@@ -133,5 +137,9 @@ public class CalendarUtils {
         }
 
         return null;
+    }
+
+    public interface CallBack_NewCalendarEvent {
+        void resetView();
     }
 }

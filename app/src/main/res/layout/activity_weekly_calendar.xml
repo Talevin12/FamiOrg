@@ -176,6 +176,6 @@
         android:backgroundTint="#BFBFBF"
         android:onClick="newEventAction"
         app:icon="@drawable/ic_plus"
-        app:iconTint="#1FFF00" />
+        app:iconTint="#539853" />
 
 </RelativeLayout>

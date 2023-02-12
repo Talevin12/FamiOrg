@@ -60,11 +60,6 @@ public class EditProfileActivity extends AppCompatActivity {
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_profile);
 
-//        String background ="https://img.freepik.com/free-vector/paper-style-white-monochrome-background_52683-66444.jpg?w=2000";
-//        ImageUtils.getInstance().load(this, background, findViewById(R.id.editProfile_IMG_background));
-
-        ImageUtils.getInstance().loadBlurry(this, getResources(), R.drawable.pink_watercolor_texture, findViewById(R.id.editProfile_IMG_background), 1);
-
         findViews();
         initViews();
         initRecyclerView();
@@ -181,7 +176,9 @@ public class EditProfileActivity extends AppCompatActivity {
             editProfile_EDIT_inviteMember.setText("");
 
             if (!(Boolean) object) {
-                Toast.makeText(this, "No User with this email found", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "No User with this email found", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Invitation sent", Toast.LENGTH_SHORT).show();
             }
         };
 

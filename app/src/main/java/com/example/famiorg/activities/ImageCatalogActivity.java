@@ -47,15 +47,8 @@ public class ImageCatalogActivity extends AppCompatActivity {
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_image_catalog);
 
-//        String background ="https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?w=2000";
-//        ImageUtils.getInstance().load(this, background, findViewById(R.id.imageCatalog_IMG_background));
-
-        ImageUtils.getInstance().loadBlurry(this, getResources(), R.drawable.image_catalog_background, findViewById(R.id.imageCatalog_IMG_background), 5);
-
         findViews();
         initViews();
-
-//        initRecyclerView();
 
         initCallbacks();
         setCallbacks();

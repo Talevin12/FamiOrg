@@ -13,6 +13,7 @@ import com.example.famiorg.R;
 import com.example.famiorg.adapters.AdapterCalendar;
 import com.example.famiorg.assets.CalendarUtils;
 import com.example.famiorg.assets.GoogleLoginAssets;
+import com.example.famiorg.assets.ImageUtils;
 import com.example.famiorg.assets.IntentUtils;
 import com.example.famiorg.callbacks.Callback_DataManager;
 import com.example.famiorg.dataManagers.UserDataManager;
@@ -33,6 +34,8 @@ public class CalendarActivity extends AppCompatActivity implements AdapterCalend
     GoogleLoginAssets googleLoginAssets = new GoogleLoginAssets(userDataManager, this);
 
     Callback_DataManager<User> callback_setUser;
+
+    CalendarUtils.CallBack_NewCalendarEvent callBack_newCalendarEvent = () -> setMonthView();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class CalendarActivity extends AppCompatActivity implements AdapterCalend
             if (user.getFamilyId() == null) {
                 finish();
             } else {
-                CalendarUtils.getInstance(user.getFamilyId());
+                CalendarUtils.getInstance(user.getFamilyId()).callBack_newCalendarEvent = callBack_newCalendarEvent;
                 CalendarUtils.getInstance(null).setSelectedDate(LocalDate.now());
                 setMonthView();
             }
@@ -109,9 +112,5 @@ public class CalendarActivity extends AppCompatActivity implements AdapterCalend
             CalendarUtils.getInstance(null).setSelectedDate(dayCalendar.getDate());
             IntentUtils.getInstance().openPage(this, WeeklyCalendarActivity.class);
         }
-    }
-
-    public void weeklyAction(View view) {
-        IntentUtils.getInstance().openPage(this, WeeklyCalendarActivity.class);
     }
 }

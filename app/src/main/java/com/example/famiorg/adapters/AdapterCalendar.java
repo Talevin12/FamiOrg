@@ -57,31 +57,33 @@ public class AdapterCalendar extends RecyclerView.Adapter<AdapterCalendar.Calend
         if(day.getDate() != null) {
             holder.dayOfMonth.setText(""+ day.getDate().getDayOfMonth());
 
+            if(day.getEvents().size() > 0) {
+                if(day.getEvents().size() == 1) {
+                    holder.cellDayDot.setVisibility(View.VISIBLE);
+                    holder.cellDay3Dots.setVisibility(View.INVISIBLE);
+                } else {
+                    holder.cellDayDot.setVisibility(View.INVISIBLE);
+                    holder.cellDay3Dots.setVisibility(View.VISIBLE);
+                }
+            } else {
+                holder.cellDayDot.setVisibility(View.INVISIBLE);
+                holder.cellDay3Dots.setVisibility(View.INVISIBLE);
+            }
+
             if (day.getDate().getDayOfMonth() == selectedDayOfMonth) {
-                holder.cellDayLayout.setBackgroundTintList(context.getColorStateList(R.color.gray));
+                holder.cellDayLayout.setBackgroundTintList(context.getColorStateList(R.color.bright_gray));
             } else if (LocalDate.now().getYear() == day.getDate().getYear() &&
                     LocalDate.now().getMonth().getValue() == day.getDate().getMonth().getValue() &&
                         LocalDate.now().getDayOfMonth() == day.getDate().getDayOfMonth()) {
-                holder.cellDayLayout.setBackgroundTintList(context.getColorStateList(R.color.blue));
+                holder.cellDayLayout.setBackgroundTintList(context.getColorStateList(R.color.green));
+            } else if(day.getEvents().size() > 0) {
+                holder.cellDayLayout.setBackgroundTintList(context.getColorStateList(R.color.bright_blue));
             } else {
                 holder.cellDayLayout.setBackgroundTintList(context.getColorStateList(R.color.white));
             }
         } else {
             holder.dayOfMonth.setText("");
             holder.cellDayLayout.setBackgroundTintList(context.getColorStateList(R.color.white));
-        }
-
-        if(day.getEvents().size() > 0) {
-            if(day.getEvents().size() == 1) {
-                holder.cellDayDot.setVisibility(View.VISIBLE);
-                holder.cellDay3Dots.setVisibility(View.INVISIBLE);
-            } else {
-                holder.cellDayDot.setVisibility(View.INVISIBLE);
-                holder.cellDay3Dots.setVisibility(View.VISIBLE);
-            }
-        } else {
-            holder.cellDayDot.setVisibility(View.INVISIBLE);
-            holder.cellDay3Dots.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -48,9 +48,6 @@ public class AddImageActivity extends AppCompatActivity {
         this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_image);
 
-        String background = "https://img.freepik.com/free-vector/hand-drawn-minimal-background_23-2149022113.jpg?w=2000";
-        ImageUtils.getInstance().load(this, background, findViewById(R.id.addImage_IMG_background));
-
         findViews();
         initViews();
 
