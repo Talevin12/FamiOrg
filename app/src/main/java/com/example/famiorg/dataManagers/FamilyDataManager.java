@@ -203,7 +203,7 @@ public class FamilyDataManager {
 
                 members.remove(userId);
                 refFamilyMembers.removeValue();
-                refFamilyMembers.setValue(members);
+                db.getReference("Families").child(familyId).child("familyMembersIDs").setValue(members);
 
                 callback_removeFamilyMember.getObject(null);
             }
