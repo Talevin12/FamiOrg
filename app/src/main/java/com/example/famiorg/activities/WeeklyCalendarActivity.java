@@ -2,6 +2,7 @@ package com.example.famiorg.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,6 +47,7 @@ public class WeeklyCalendarActivity extends AppCompatActivity implements Adapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_weekly_calendar);
 
         findViews();
