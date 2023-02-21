@@ -32,7 +32,6 @@ FamiOrg is a simple family organizer. It is an android application that allows y
 ### Requirements (tested on)
 * Android Studio 2022.1.1 or higher
 * Minimum Android SDK 29
-* Android Build Tools v26.0.2
 
 > Note: You can download Android Studio from [here](https://developer.android.com/studio/)
 
